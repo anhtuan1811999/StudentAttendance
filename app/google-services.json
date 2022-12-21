@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "935268715723",
+    "firebase_url": "https://middleprojectmap-default-rtdb.firebaseio.com",
+    "project_id": "middleprojectmap",
+    "storage_bucket": "middleprojectmap.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935268715723:android:714a5abf9d1b233ca51f4e",
+        "android_client_info": {
+          "package_name": "com.example.middleprojectmap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "935268715723-oldscj4l5er6ds10qm0eo4i2irrrbjo0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBY7MQEepdpR_skmiKVvbiz6kp_FZOHTM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "935268715723-oldscj4l5er6ds10qm0eo4i2irrrbjo0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935268715723:android:9963a8cdfcf79d39a51f4e",
+        "android_client_info": {
+          "package_name": "com.example.studentattendance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "935268715723-oldscj4l5er6ds10qm0eo4i2irrrbjo0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBY7MQEepdpR_skmiKVvbiz6kp_FZOHTM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "935268715723-oldscj4l5er6ds10qm0eo4i2irrrbjo0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
