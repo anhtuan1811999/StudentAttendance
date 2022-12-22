@@ -29,12 +29,12 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnSubmit;
 
     private void createElement(){
-        edFullName = (EditText) findViewById(R.id.edit_text_fullname);
-        edStudentCode = (EditText) findViewById(R.id.edit_text_studentcode);
-        edEmail = (EditText) findViewById(R.id.edit_text_email);
-        edUsername = (EditText) findViewById(R.id.edit_text_username);
-        edPassword = (EditText) findViewById(R.id.edit_text_password);
-        btnSubmit = (Button) findViewById(R.id.btn_submit);
+        edFullName = findViewById(R.id.edit_text_fullname);
+        edStudentCode = findViewById(R.id.edit_text_studentcode);
+        edEmail = findViewById(R.id.edit_text_email);
+        edUsername = findViewById(R.id.edit_text_username);
+        edPassword = findViewById(R.id.edit_text_password);
+        btnSubmit = findViewById(R.id.btn_submit);
     }
 
     @Override
@@ -43,28 +43,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         createElement();
-//
-//        buttonSubmitRegister.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                DatabaseReference myRef = database.getReference(dbTest);
-//
-//                DatabaseReference child = myRef.child("Nguyễn Duy Anh Tuấn");
-//
-//                String username = editTextUsernameRegister.getText().toString();
-//                String password = editTextPasswordRegister.getText().toString();
-//
-//                StudentInfomation studentInfomation = new StudentInfomation(username,password);
-//                studentInfomation.setFullName("Nguyễn Duy Anh Tuấn");
-//                studentInfomation.setStudentCode("20172888");
-//                studentInfomation.setEmail("tuan.nda172888@sis.hust.edu.vn");
-//
-//                child.setValue(studentInfomation);
-//
-//                Toast.makeText(getApplicationContext(),"submited successfully",Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
