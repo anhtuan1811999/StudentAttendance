@@ -66,22 +66,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), status +" "+username+" "+password,Toast.LENGTH_SHORT)
                     .show();
         });
-//        ArrayList<StudentInfomation> stuArr = new ArrayList<>();
-//        studentInfos.forEach((k,v) ->{
-//            System.out.println(v.getUsername());
-//            stuArr.add(v);
-//        });
-//        System.out.println("this is arr: "+stuArr);
-//        btnLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (checkLogin(username,password, hashSetStudent)){
-//                    Log.w("------","true");
-//                } else {
-//                    Log.w("------","false");
-//                }
-//            }
-//        });
     }
 
     public static void  getAllDataFromDBRoot(){
