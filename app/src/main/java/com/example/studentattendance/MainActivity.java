@@ -3,11 +3,12 @@ package com.example.studentattendance;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,12 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,12 +36,16 @@ public class MainActivity extends AppCompatActivity {
     private EditText edPassword;
     private Button btnLogin;
     private TextView teNewStudent;
+    private RadioButton rbtnStudent;
+    private RadioButton rbtnTeacher;
 
     private void createElement(){
         edUsername = findViewById(R.id.edit_text_username_login);
         edPassword = findViewById(R.id.edit_text_password_login);
         btnLogin = findViewById(R.id.btn_login);
         teNewStudent = findViewById(R.id.text_view_new_student);
+        rbtnStudent =  findViewById(R.id.rbtn_student);
+        rbtnTeacher = findViewById(R.id.rbtn_teacher);
     }
 
     @Override
@@ -53,21 +53,48 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         createElement();
-        String username = edUsername.getText().toString();
-        String password = edPassword.getText().toString();
-
 
         getAllDataFromDBRoot();
 
+//        String username = "xung123";
+//        String password = "123";
+
+
+
+        /*Login Feature*/
+
         btnLogin.setOnClickListener(v -> {
-            System.out.println("this is username: "+username);
-            System.out.println("this is password: "+password);
-            boolean status = checkLogin(username, password, studentInfos);
-            Toast.makeText(getApplicationContext(), status +" "+username+" "+password,Toast.LENGTH_SHORT)
-                    .show();
+            String username = edUsername.getText().toString();
+            String password = edPassword.getText().toString();
+            boolean status = checkLoginStudent(username, password, studentInfos);
+            if (status){
+                if (rbtnStudent.isChecked()){
+                    Toast.makeText(getApplicationContext(), "Login Success",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, MainPageStudentActivity.class);
+                    startActivity(intent);
+                } else if (rbtnTeacher.isChecked()){
+                    Toast.makeText(getApplicationContext(),"Your role is not teacher",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(),"Please check your role",Toast.LENGTH_SHORT).show();
+                }
+            } else  if (checkLoginTeacher(username,password)&&rbtnTeacher.isChecked()){
+                    Toast.makeText(getApplicationContext(), "Teacher Login Successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                    Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
+            }
         });
+
+        /* Register Feature */
+
+        teNewStudent.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        });
+
     }
 
+
+    /* get data from firebase*/
     public static void  getAllDataFromDBRoot(){
         DatabaseReference myRef = createRootReference();
         GenericTypeIndicator<HashMap<String, StudentInfomation>> t = new GenericTypeIndicator<HashMap<String, StudentInfomation>>() {};
@@ -87,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private boolean checkLogin(String username, String password,HashMap<String, StudentInfomation> students){
+    private boolean checkLoginStudent(String username, String password, HashMap<String, StudentInfomation> students){
         boolean status = false;
         for (StudentInfomation element:students.values()) {
             if (username.equals(element.getUsername())&&password.equals(element.getPassword())){
@@ -95,6 +122,17 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
         }
+        return status;
+    }
+
+    private boolean checkLoginTeacher(String username, String password){
+        String teacherUsername = "teacher";
+        String teacherPassword = "teacher";
+        boolean status = false;
+        if (username.equals(teacherUsername)&&password.equals(teacherPassword)){
+            status = true;
+        }
+
         return status;
     }
 }
