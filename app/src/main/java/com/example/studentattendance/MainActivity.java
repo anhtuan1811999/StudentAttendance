@@ -25,7 +25,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     public static final String dbTest = "DatabaseTest";
-    static HashMap<String, StudentInfomation> studentInfos;
+    public static HashMap<String, StudentInfomation> studentInfosFromFireBase;
 
     public static final DatabaseReference createRootReference(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -56,17 +56,12 @@ public class MainActivity extends AppCompatActivity {
 
         getAllDataFromDBRoot();
 
-//        String username = "xung123";
-//        String password = "123";
-
-
-
         /*Login Feature*/
 
         btnLogin.setOnClickListener(v -> {
             String username = edUsername.getText().toString();
             String password = edPassword.getText().toString();
-            boolean status = checkLoginStudent(username, password, studentInfos);
+            boolean status = checkLoginStudent(username, password, studentInfosFromFireBase);
             if (status){
                 if (rbtnStudent.isChecked()){
                     Toast.makeText(getApplicationContext(), "Login Success",Toast.LENGTH_SHORT).show();
@@ -98,12 +93,12 @@ public class MainActivity extends AppCompatActivity {
     public static void  getAllDataFromDBRoot(){
         DatabaseReference myRef = createRootReference();
         GenericTypeIndicator<HashMap<String, StudentInfomation>> t = new GenericTypeIndicator<HashMap<String, StudentInfomation>>() {};
-        studentInfos = new HashMap<>();
+        studentInfosFromFireBase = new HashMap<>();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String, StudentInfomation> studentInfosRetrieve = snapshot.getValue(t);
-                studentInfos.putAll(studentInfosRetrieve);
+                studentInfosFromFireBase.putAll(studentInfosRetrieve);
             }
 
             @Override
