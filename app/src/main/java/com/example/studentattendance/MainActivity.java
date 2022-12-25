@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     /* get data from firebase*/
     public static void  getAllDataFromDBRoot(){
         DatabaseReference myRef = createRootReference();

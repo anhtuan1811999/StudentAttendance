@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">StudentAttendance</string>
+    <string name="color_code">#ECE8E8</string>
 </resources>
