@@ -73,7 +73,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Please check your role",Toast.LENGTH_SHORT).show();
                 }
             } else  if (checkLoginTeacher(username,password)&&rbtnTeacher.isChecked()){
-                    Toast.makeText(getApplicationContext(), "Teacher Login Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Teacher Login Successfully", Toast.LENGTH_SHORT)
+                            .show();
+                Intent intent = new Intent(this, MainPageTeacherActivity.class);
+                startActivity(intent);
             } else {
                     Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
             }
