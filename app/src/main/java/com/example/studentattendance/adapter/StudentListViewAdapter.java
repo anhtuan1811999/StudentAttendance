@@ -46,7 +46,7 @@ public class StudentListViewAdapter extends BaseAdapter {
 
         TextView teName = convertView.findViewById(R.id.student_name_detail);
         TextView teCode = convertView.findViewById(R.id.student_code_detail);
-        TextView teAbsent = convertView.findViewById(R.id.absent_quantity_detail);
+        TextView teAbsent = convertView.findViewById(R.id.absent_detail);
 
         return convertView;
     }

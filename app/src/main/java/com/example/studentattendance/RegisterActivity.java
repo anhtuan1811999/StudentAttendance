@@ -75,8 +75,9 @@ public class RegisterActivity extends AppCompatActivity {
                 studentInfomation.setEmail(edEmail.getText().toString());
                 studentInfomation.setUsername(edUsername.getText().toString());
                 studentInfomation.setPassword(edPassword.getText().toString());
-                ref.child(edFullName.getText().toString()+" "+edStudentCode.getText().toString()).setValue(studentInfomation);
-                Toast.makeText(getApplicationContext(),"Registered Successfully", Toast.LENGTH_SHORT).show();
+                ref.child(edStudentCode.getText().toString()).setValue(studentInfomation);
+                Toast.makeText(getApplicationContext(),"Registered Successfully",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -1,5 +1,7 @@
 package com.example.studentattendance.object;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class StudentInfomation {
@@ -9,7 +11,7 @@ public class StudentInfomation {
     private String email;
     private String username;
     private String password;
-    private Map<String, AttendanceStatus> statusMap;
+    private List<String> dateAbsent = new ArrayList<>();
 
 
     public StudentInfomation() {
@@ -66,11 +68,11 @@ public class StudentInfomation {
         this.password = password;
     }
 
-    public Map<String, AttendanceStatus> getStatusMap() {
-        return statusMap;
+    public List<String> getDateAbsent() {
+        return dateAbsent;
     }
 
-    public void setStatusMap(Map<String, AttendanceStatus> statusMap) {
-        this.statusMap = statusMap;
+    public void setDateAbsent(List<String> dateAbsent) {
+        this.dateAbsent = dateAbsent;
     }
 }

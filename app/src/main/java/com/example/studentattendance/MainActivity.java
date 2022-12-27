@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 if (rbtnStudent.isChecked()){
                     Toast.makeText(getApplicationContext(), "Login Success",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(this, MainPageStudentActivity.class);
+                    intent.putExtra("usernameLogin", username);
                     startActivity(intent);
                 } else if (rbtnTeacher.isChecked()){
                     Toast.makeText(getApplicationContext(),"Your role is not teacher",Toast.LENGTH_SHORT).show();
@@ -99,8 +100,15 @@ public class MainActivity extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 HashMap<String, StudentInfomation> studentInfosRetrieve = snapshot.getValue(t);
-                studentInfosFromFireBase.putAll(studentInfosRetrieve);
+
+                if (studentInfosRetrieve==null){
+                    return;
+                } else {
+                    studentInfosFromFireBase.putAll(studentInfosRetrieve);
+                }
+
             }
 
             @Override
