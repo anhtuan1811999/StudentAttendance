@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /* Check login student */
     private boolean checkLoginStudent(String username, String password, HashMap<String, StudentInfomation> students){
         boolean status = false;
         for (StudentInfomation element:students.values()) {
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         return status;
     }
 
+    /* Check login teacher */
     private boolean checkLoginTeacher(String username, String password){
         String teacherUsername = "teacher";
         String teacherPassword = "teacher";
