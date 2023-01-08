@@ -27,15 +27,16 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText edEmail;
     private EditText edUsername;
     private EditText edPassword;
+    private EditText edPhone;
     private Button btnSubmit;
 
     private void createElement(){
-        edFullName = findViewById(R.id.edit_text_fullname);
-        edStudentCode = findViewById(R.id.edit_text_studentcode);
-        edEmail = findViewById(R.id.edit_text_email);
-        edUsername = findViewById(R.id.edit_text_username);
-        edPassword = findViewById(R.id.edit_text_password);
-        btnSubmit = findViewById(R.id.btn_submit);
+        edFullName = findViewById(R.id.register_fullname);
+        edStudentCode = findViewById(R.id.register_studentcode);
+        edEmail = findViewById(R.id.register_email);
+        edUsername = findViewById(R.id.register_username);
+        edPassword = findViewById(R.id.register_password);
+        btnSubmit = findViewById(R.id.registerbtn);
     }
 
     @Override

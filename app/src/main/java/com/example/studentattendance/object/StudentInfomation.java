@@ -11,6 +11,7 @@ public class StudentInfomation {
     private String email;
     private String username;
     private String password;
+    private String phone;
     private List<String> dateAbsent = new ArrayList<>();
 
 
@@ -66,6 +67,14 @@ public class StudentInfomation {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public List<String> getDateAbsent() {

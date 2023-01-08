@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +41,7 @@ public class RecyclerView_Config {
         private TextView mFullName;
         private TextView mCode;
         private TextView mAbsent;
-        private Button btnAbsent;
+        private CheckBox cbAttendance;
 
         private String key;
 
@@ -49,7 +51,7 @@ public class RecyclerView_Config {
             mFullName = itemView.findViewById(R.id.student_name_detail);
             mCode = itemView.findViewById(R.id.student_code_detail);
             mAbsent = itemView.findViewById(R.id.absent_detail);
-            btnAbsent = itemView.findViewById(R.id.btn_absent);
+            cbAttendance = itemView.findViewById(R.id.checkbox_attendance);
 
         }
 
@@ -73,43 +75,23 @@ public class RecyclerView_Config {
         public void onBindViewHolder(@NonNull StudentItemView holder, int position) {
 
             holder.bind(mStudentList.get(position), mKeys.get(position));
-            holder.btnAbsent.setOnClickListener(v -> {
-                String code = mStudentList.get(position).getStudentCode();
-                butonClickToSubmitAbsence(code,mStudentList.get(position));
+            holder.cbAttendance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    checkToSubmitAbsentStudent(isChecked);
+                }
             });
         }
 
-        void butonClickToSubmitAbsence(String code,StudentInfomation student){
+        private void checkToSubmitAbsentStudent(boolean isChecked){
 
-            List<String> list = student.getDateAbsent();
 
-            if (clickMoreThanOnce(list)){
-                Toast.makeText(mContext.getApplicationContext(), code + " already updated", Toast.LENGTH_SHORT).show();
+
+            if (isChecked){
+                Toast.makeText(mContext.getApplicationContext(),"Submit Successfully",Toast.LENGTH_SHORT).show();
             } else {
-
-                list.add(LocalDate.now().toString());
-                // Write a message to the database
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("DatabaseTest").child(code)
-                        .child("dateAbsent");
-                myRef.setValue(list);
-
-                Toast.makeText(mContext.getApplicationContext(), "Updated Successfully " + code, Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(mContext.getApplicationContext(),"Undo Successfully",Toast.LENGTH_SHORT).show();
             }
-
-        }
-
-        private boolean clickMoreThanOnce(List<String> list){
-            boolean status = false;
-            for (String st: list
-                 ) {
-                if (st.equals(LocalDate.now().toString())){
-                    status = true;
-                    break;
-                }
-            }
-            return status;
         }
 
         @NonNull

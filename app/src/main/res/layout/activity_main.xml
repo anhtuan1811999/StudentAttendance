@@ -1,119 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/login_student"
     tools:context=".MainActivity">
 
+
     <TextView
+        android:id="@+id/signin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:textColor="@color/white"
+        android:textSize="35dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_margin="50dp"/>
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signin"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#30ffffff"
+        android:drawableLeft="@drawable/ic_baseline_person_outline_24"
+        android:drawablePadding="20dp"
+        android:hint="Username"
+        android:padding="20dp"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"/>
+
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#30ffffff"
+        android:drawableLeft="@drawable/ic_baseline_info_24"
+        android:drawablePadding="20dp"
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:padding="20dp"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"/>
+
+    <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:id="@+id/loginbtn"
+        android:layout_below="@id/password"
         android:text="LOGIN"
-        android:textSize="50dp"
-        android:layout_marginTop="30dp"
-        android:textColor="@color/purple_500"/>
-    <LinearLayout
+        android:backgroundTint="@color/design_default_color_secondary"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"/>
+
+
+    <TextView
+        android:id="@+id/forgot_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_marginTop="80dp">
+        android:layout_below="@+id/rbtng_sigin"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="230dp"
+        android:clickable="true"
+        android:text="Forgot password?"
+        android:textColor="@color/white" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Username"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/edit_text_username_login"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:background="#DDD5D5"
-                android:inputType="text" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/edit_text_password_login"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:background="#DDD5D5"/>
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-    <Button
-        android:id="@+id/btn_login"
+    <TextView
+        android:id="@+id/new_student"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:text="Login" />
+        android:layout_below="@+id/rbtng_sigin"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:text="New Student?"
+        android:textColor="@color/white" />
+
+
+    <TextView
+        android:id="@+id/new_teacher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rbtng_sigin"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="30dp"
+        android:clickable="true"
+        android:text="New Teacher?"
+        android:textColor="@color/white" />
 
     <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <RadioButton
-            android:id="@+id/rbtn_teacher"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Teacher" />
-
-        <RadioButton
-            android:id="@+id/rbtn_student"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Student" />
-    </RadioGroup>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp">
-
-
-        <TextView
-            android:id="@+id/text_view_new_student"
+            android:id="@+id/rbtng_sigin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17dp"
-            android:clickable="true"
-            android:text="New Student?"/>
+            android:layout_below="@+id/loginbtn"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="17dp"
-            android:text="Report Problem"
-            android:layout_marginLeft="80dp"/>
+            <RadioButton
+                android:id="@+id/rbtn_teacher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Teacher" />
 
-    </LinearLayout>
-</LinearLayout>
+            <RadioButton
+                android:id="@+id/rbtn_student"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Student" />
+        </RadioGroup>
+
+    <TextView
+        android:id="@+id/txt_network"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/new_teacher"
+        android:layout_marginTop="55dp"
+        android:layout_marginLeft="50dp"
+        android:textColor="@color/white"
+        android:drawablePadding="10dp"/>
+
+
+
+</RelativeLayout>

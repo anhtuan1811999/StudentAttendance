@@ -3,7 +3,13 @@ package com.example.studentattendance;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
+import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -38,14 +44,16 @@ public class MainActivity extends AppCompatActivity {
     private TextView teNewStudent;
     private RadioButton rbtnStudent;
     private RadioButton rbtnTeacher;
+    private TextView teSignal;
 
     private void createElement(){
-        edUsername = findViewById(R.id.edit_text_username_login);
-        edPassword = findViewById(R.id.edit_text_password_login);
-        btnLogin = findViewById(R.id.btn_login);
-        teNewStudent = findViewById(R.id.text_view_new_student);
+        edUsername = findViewById(R.id.username);
+        edPassword = findViewById(R.id.password);
+        btnLogin = findViewById(R.id.loginbtn);
+        teNewStudent = findViewById(R.id.new_student);
         rbtnStudent =  findViewById(R.id.rbtn_student);
         rbtnTeacher = findViewById(R.id.rbtn_teacher);
+        teSignal = findViewById(R.id.txt_network);
     }
 
     @Override
@@ -56,13 +64,67 @@ public class MainActivity extends AppCompatActivity {
 
         getAllDataFromDBRoot();
 
+
+        /* Change icon internet connection */
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                .addTransportType((NetworkCapabilities.TRANSPORT_CELLULAR))
+                .build();
+
+        ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback(){
+            @Override
+            public void onAvailable(@NonNull Network network) {
+                super.onAvailable(network);
+                if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() ==
+                NetworkInfo.State.DISCONNECTED){
+                    runOnUiThread(() -> {
+                        teSignal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_4g_plus_mobiledata_24,0,0,0);
+                        teSignal.setText("Mobile Data");
+                    });
+                } else {
+                    runOnUiThread(() -> {
+                        teSignal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_wifi_24,0,0,0);
+                        teSignal.setText("Wifi Connected");
+                    });
+                }
+            }
+            @Override
+            public void onLost(@NonNull Network network) {
+                super.onLost(network);
+                runOnUiThread(() -> {
+                    teSignal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_signal_wifi_statusbar_connected_no_internet_4_24,0,0,0);
+                    teSignal.setText("No Internet Connection");
+                });
+            }
+
+            @Override
+            public void onUnavailable() {
+                super.onUnavailable();
+                Toast.makeText(getApplicationContext(), "onUnavailable", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCapabilitiesChanged(@NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
+                super.onCapabilitiesChanged(network, networkCapabilities);
+            }
+        };
+
+        connectivityManager.requestNetwork(networkRequest, networkCallback);
         /*Login Feature*/
 
         btnLogin.setOnClickListener(v -> {
             String username = edUsername.getText().toString();
             String password = edPassword.getText().toString();
             boolean status = checkLoginStudent(username, password, studentInfosFromFireBase);
-            if (status){
+
+            if (noConnection()){
+                Toast.makeText(getApplicationContext(),"No Internet Connection",Toast.LENGTH_SHORT).show();
+            }
+            else if (status){
                 if (rbtnStudent.isChecked()){
                     Toast.makeText(getApplicationContext(), "Login Success",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(this, MainPageStudentActivity.class);
@@ -118,7 +180,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     /* Check login student */
     private boolean checkLoginStudent(String username, String password, HashMap<String, StudentInfomation> students){
         boolean status = false;
@@ -141,5 +202,31 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return status;
+    }
+
+    /* Check internet connection */
+    private boolean checkInternetConnection(){
+            ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+            boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
+
+            return connected;
+    }
+
+    /* Check wifi connection */
+    private boolean checkWifiConnection(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+    }
+
+    /* Check mobile data */
+    private boolean checkMobileDataConnection(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED;
+    }
+
+    /* Check no connection */
+    private boolean noConnection(){
+        return !checkInternetConnection();
     }
 }
