@@ -1,6 +1,7 @@
 package com.example.studentattendance.recycler_view_config;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studentattendance.R;
+import com.example.studentattendance.StudentDetailInfomation;
 import com.example.studentattendance.object.StudentInfomation;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.w3c.dom.Text;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -42,6 +47,8 @@ public class RecyclerView_Config {
         private TextView mCode;
         private TextView mAbsent;
         private CheckBox cbAttendance;
+        private ConstraintLayout mStudentDetailLayout;
+        private TextView mInfo;
 
         private String key;
 
@@ -52,6 +59,8 @@ public class RecyclerView_Config {
             mCode = itemView.findViewById(R.id.student_code_detail);
             mAbsent = itemView.findViewById(R.id.absent_detail);
             cbAttendance = itemView.findViewById(R.id.checkbox_attendance);
+            mStudentDetailLayout = itemView.findViewById(R.id.student_item);
+            mInfo = itemView.findViewById(R.id.txt_infor_student);
 
         }
 
@@ -75,10 +84,21 @@ public class RecyclerView_Config {
         public void onBindViewHolder(@NonNull StudentItemView holder, int position) {
 
             holder.bind(mStudentList.get(position), mKeys.get(position));
+
+            // check to attendance
             holder.cbAttendance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     checkToSubmitAbsentStudent(isChecked);
+                }
+            });
+
+            //click to show student infomation
+            holder.mStudentDetailLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext.getApplicationContext(), StudentDetailInfomation.class);
+                    mContext.startActivity(intent);
                 }
             });
         }
