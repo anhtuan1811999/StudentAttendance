@@ -86,12 +86,7 @@ public class RecyclerView_Config {
             holder.bind(mStudentList.get(position), mKeys.get(position));
 
             // check to attendance
-            holder.cbAttendance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    checkToSubmitAbsentStudent(isChecked);
-                }
-            });
+            holder.cbAttendance.setOnCheckedChangeListener((buttonView, isChecked) -> checkToSubmitAbsentStudent(isChecked, holder));
 
             //click to show student infomation
             holder.mStudentDetailLayout.setOnClickListener(new View.OnClickListener() {
@@ -103,11 +98,11 @@ public class RecyclerView_Config {
             });
         }
 
-        private void checkToSubmitAbsentStudent(boolean isChecked){
-
-
+        private void checkToSubmitAbsentStudent(boolean isChecked, StudentItemView holder){
 
             if (isChecked){
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference reference = firebaseDatabase.getReference("DatabaseTest").child(holder.mCode.getText().toString());
                 Toast.makeText(mContext.getApplicationContext(),"Submit Successfully",Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(mContext.getApplicationContext(),"Undo Successfully",Toast.LENGTH_SHORT).show();
